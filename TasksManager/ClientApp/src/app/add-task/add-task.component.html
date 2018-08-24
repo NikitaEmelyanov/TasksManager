@@ -1,1 +1,13 @@
 <h1>Add new task</h1>
+
+<form id="add-task-form" (click)="addTask()">
+  <label for="new-task-name">Name:</label>
+  <input id="new-task-name" autofocus>
+  <label for="new-task-description">Description:</label>
+  <input id="new-task-description">
+  <label for="new-task-priority">Priority:</label>
+  <input id="new-task-priority">
+  <label for="new-task-time-to-complete">Time to complete:</label>
+  <input id="new-task-time-to-complete">
+  <input type="submit" id="submit" value="Save" />
+</form>
