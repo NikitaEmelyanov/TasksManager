@@ -1,6 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ApiTask} from '../api-access/models/api-task';
+import {Task} from '../models/task';
 
 @Injectable()
 export class DataService {
@@ -16,7 +16,7 @@ export class DataService {
     return this.http.post(this.baseUrl + this.url, id);
   }
 
-  addTask(apiTask: ApiTask) {
+  addTask(apiTask: Task) {
     return this.http.post(this.baseUrl + this.url, apiTask);
   }
 }
