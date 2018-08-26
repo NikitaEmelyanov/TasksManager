@@ -1,23 +1,18 @@
-import { Component, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {Component} from '@angular/core';
+import {DataService} from '../services/data-service';
+import {Task} from '../models/task';
+import {ApiTask} from '../api-access/models/api-task';
 
 @Component({
   selector: 'app-tasks-list',
-  templateUrl: './tasks-list.component.html'
+  templateUrl: './tasks-list.component.html',
+  providers: [DataService]
 })
 export class TasksListComponent {
-  public forecasts: WeatherForecast[];
+  public tasks: Task[];
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<WeatherForecast[]>(baseUrl + 'api/SampleData/WeatherForecasts').subscribe(result => {
-      this.forecasts = result;
-    }, error => console.error(error));
+  constructor(private dataService: DataService) {
+    this.dataService.getTasks()
+                    .subscribe((data: Task[]) => this.tasks = data);
   }
-}
-
-interface WeatherForecast {
-  dateFormatted: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
 }
