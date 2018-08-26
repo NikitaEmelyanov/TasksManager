@@ -1,9 +1,12 @@
-﻿using TasksManager.DataAccess.Models;
+﻿using System.Collections.Generic;
+using TasksManager.DataAccess.Models;
 
 namespace TasksManager.DataAccess.Interfaces
 {
     public interface ITaskRepository
     {
-        bool Write(DbTask dbTask);
+        void Write(DbTask dbTask);
+        IEnumerable<DbTask> ReadAll();
+        DbTask ReadById(int id);
     }
 }
