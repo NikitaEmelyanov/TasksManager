@@ -25,6 +25,8 @@ namespace TasksManager.Domain
         public Task LoadById(int id)
         {
             var dbTask = _taskRepository.ReadById(id);
+            if (dbTask == null)
+                return null;
 
             return ToTask(dbTask);
         }

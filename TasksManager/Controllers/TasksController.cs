@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using TasksManager.Domain.Interfaces;
 using TasksManager.Domain.Models;
@@ -22,6 +23,12 @@ namespace TasksManager.Controllers
         [ProducesResponseType(200)]
         public IActionResult Post([FromBody] Task task)
         {
+            if (string.IsNullOrWhiteSpace(task.Name) ||
+                string.IsNullOrWhiteSpace(task.Description) ||
+                task.Priority <= 0 ||
+                task.TimeToComplete <= 0)
+                return BadRequest("Invalid payload");
+
             _taskWriter.Save(task);
 
             return Ok();
@@ -30,17 +37,27 @@ namespace TasksManager.Controllers
         [HttpGet]
         [Route("api/[controller]")]
         [Produces("application/json")]
-        public IEnumerable<Task> Get()
+        public ActionResult<IEnumerable<Task>> Get()
         {
-            return _taskReader.LoadAll();
+            var tasks = _taskReader.LoadAll();
+
+            if (!tasks.Any())
+                return BadRequest("No existing tasks");
+
+            return Ok(tasks);
         }
 
         [HttpGet]
         [Route("api/[controller]/{id}")]
         [Produces("application/json")]
-        public Task Get(int id)
+        public ActionResult<Task> Get(int id)
         {
-            return _taskReader.LoadById(id);
+            var task = _taskReader.LoadById(id);
+
+            if (task == null)
+                return BadRequest("Requested id does not exist");
+
+            return Ok(task);
         }
     }
 }
