@@ -9,5 +9,6 @@ namespace TasksManager.DataAccess.Models
         public string Description { get; set; }
         public int Priority { get; set; }
         public DateTime CompletionTime { get; set; }
+        public DateTime CreationTime { get; set; }
     }
 }
