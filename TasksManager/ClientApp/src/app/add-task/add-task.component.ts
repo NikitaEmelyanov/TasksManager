@@ -1,23 +1,19 @@
-import { Component, Inject } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
+import {Component} from '@angular/core';
+import {DataService} from '../services/data-service';
+import {Task} from '../models/task';
 
 @Component({
   selector: 'app-add-task',
-  templateUrl: './add-task.component.html'
+  templateUrl: './add-task.component.html',
+  providers: [DataService]
 })
 
 export class AddTaskComponent {
-  private task: Task;
-  private http: HttpClient;
+  task: Task = new Task();
 
-  public addTask() {
-    /**this.http.post(this.baseUrl + 'api/TasksStorage', JSON.stringify(this.task));**/
+  constructor(private dataService: DataService) {}
+
+  public save() {
+    this.dataService.addTask(this.task);
   }
-}
-
-interface Task {
-  name: string;
-  description: string;
-  priority: string;
-  timeToComplete: string;
 }
