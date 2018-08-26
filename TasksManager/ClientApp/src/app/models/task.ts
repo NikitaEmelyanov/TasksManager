@@ -1,8 +1,7 @@
 export class Task {
-  constructor(public id?: number,
-              public name?: string,
+  constructor(public name?: string,
               public description?: string,
               public priority?: number,
-              public timeToComplete?: number) { }
+              public time_to_complete?: string) { }
 
 }
