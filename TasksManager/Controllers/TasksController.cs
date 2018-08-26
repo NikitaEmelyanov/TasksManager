@@ -7,6 +7,7 @@ using TasksManager.Domain.Models;
 namespace TasksManager.Controllers
 {
     [ApiController]
+    [Route("api/[controller]")]
     public class TasksController : ControllerBase
     {
         private readonly ITaskWriter _taskWriter;
@@ -19,7 +20,6 @@ namespace TasksManager.Controllers
         }
 
         [HttpPost]
-        [Route("api/[controller]")]
         [ProducesResponseType(200)]
         public IActionResult Post([FromBody] Task task)
         {
@@ -35,7 +35,6 @@ namespace TasksManager.Controllers
         }
 
         [HttpGet]
-        [Route("api/[controller]")]
         [Produces("application/json")]
         public ActionResult<IEnumerable<Task>> Get()
         {
@@ -47,8 +46,7 @@ namespace TasksManager.Controllers
             return Ok(tasks);
         }
 
-        [HttpGet]
-        [Route("api/[controller]/{id}")]
+        [HttpGet("{id}")]
         [Produces("application/json")]
         public ActionResult<Task> Get(int id)
         {
