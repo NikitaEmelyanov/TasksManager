@@ -24,7 +24,13 @@ namespace TasksManager.Domain
         private DbTask ToDbTask(Task task)
         {
             var competionTime = DateTime.Now + TimeSpan.FromMilliseconds(task.TimeToComplete);
-            return new DbTask(task.Name, task.Description, task.Priority, competionTime);
+            return new DbTask
+            {
+                Name = task.Name,
+                Description = task.Description,
+                Priority = task.Priority,
+                CompletionTime = competionTime
+            };
         }
     }
 }

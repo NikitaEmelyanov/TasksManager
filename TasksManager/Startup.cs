@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TasksManager.DataAccess;
+using TasksManager.DataAccess.Contexts;
 using TasksManager.DataAccess.Interfaces;
 using TasksManager.Domain;
 using TasksManager.Domain.Interfaces;
@@ -29,8 +31,11 @@ namespace TasksManager
                 configuration.RootPath = "ClientApp/dist";
             });
 
-            services.AddSingleton<ITaskRepository, TaskRepository>();
-            services.AddSingleton<ITaskWriter, TaskWriter>();
+            services.AddDbContext<TasksContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("TasksContext")));
+
+            services.AddScoped<ITaskRepository, TaskRepository>();
+            services.AddScoped<ITaskWriter, TaskWriter>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
