@@ -6,6 +6,5 @@ namespace TasksManager.Domain.Interfaces
     public interface ITaskReader
     {
         IEnumerable<Task> LoadAll();
-        Task LoadById(int id);
     }
 }

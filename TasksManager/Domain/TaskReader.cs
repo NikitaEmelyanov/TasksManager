@@ -22,15 +22,6 @@ namespace TasksManager.Domain
             return ToTasks(dbTasks);
         }
 
-        public Task LoadById(int id)
-        {
-            var dbTask = _taskRepository.ReadById(id);
-            if (dbTask == null)
-                return null;
-
-            return ToTask(dbTask);
-        }
-
         private IEnumerable<Task> ToTasks(IEnumerable<DbTask> dbTasks)
         {
             foreach (var dbTask in dbTasks)

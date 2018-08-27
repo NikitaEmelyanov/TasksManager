@@ -58,17 +58,5 @@ namespace TasksManager.Controllers
 
             return Ok(tasks);
         }
-
-        [HttpGet("{id}")]
-        [Produces("application/json")]
-        public ActionResult<Task> Get(int id)
-        {
-            var task = _taskReader.LoadById(id);
-
-            if (task == null)
-                return BadRequest("Requested id does not exist");
-
-            return Ok(task);
-        }
     }
 }
