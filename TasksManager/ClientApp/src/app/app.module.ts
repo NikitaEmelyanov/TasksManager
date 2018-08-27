@@ -9,6 +9,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { TasksListComponent } from './tasks-list/tasks-list.component';
 import { AddTaskComponent } from './add-task/add-task.component';
+import {EnumAsStringPipe} from './pipes/enumAsString';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { AddTaskComponent } from './add-task/add-task.component';
     NavMenuComponent,
     HomeComponent,
     TasksListComponent,
-    AddTaskComponent
+    AddTaskComponent,
+    EnumAsStringPipe
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

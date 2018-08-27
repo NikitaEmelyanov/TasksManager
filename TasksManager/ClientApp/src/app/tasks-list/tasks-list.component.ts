@@ -10,9 +10,11 @@ import {TaskStatus} from '../models/task-status';
 })
 
 export class TasksListComponent {
+  TaskStatus = TaskStatus;
   public apiTasks: Task[];
   public domainTasks: Task[];
   public selectedTask: Task = new Task();
+  public isTaskDetailsVisible = false;
   public filter = 'all';
 
   private countdownIntervalId: number;
@@ -48,9 +50,11 @@ export class TasksListComponent {
   public onTaskClick(task: Task) {
     if (this.removeButtonClicked) {
       this.removeButtonClicked = false;
+      this.isTaskDetailsVisible = false;
       this.selectedTask = new Task();
     } else {
       this.selectedTask = task;
+      this.isTaskDetailsVisible = true;
     }
   }
 
