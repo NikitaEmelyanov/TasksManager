@@ -13,5 +13,6 @@ Update-Database
 ```
 It is needed in order to migrate localdb scripts. Also it is will start the process of restoring npm packages so be patient.
 In the end you will get TasksContext db in your localdb with dbo.Tasks table
+
 5. Run with IIS Express in Debug or Release configuration.
 6. Enjoy!
