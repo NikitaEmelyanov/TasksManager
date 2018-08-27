@@ -30,5 +30,10 @@ namespace TasksManager.DataAccess
         {
             return _tasksContext.Tasks.FirstOrDefault(o => o.Id == id);
         }
+
+        public void Update(DbTask dbTask)
+        {
+            _tasksContext.Tasks.Update(dbTask);
+        }
     }
 }

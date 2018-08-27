@@ -15,15 +15,12 @@ export class AddTaskComponent {
   constructor(private dataService: DataService) {}
 
   public save() {
-    this.task.time_to_complete = this.toCompletionTime(this.timeToComplete);
+    this.task.completion_time = this.toCompletionTime(this.timeToComplete);
     this.dataService.addTask(this.task)
                     .subscribe(error => console.error(error));
   }
 
   private toCompletionTime(time: string) {
-    const timeInMilliseconds = Date.parse(time);
-    const timeNow = new Date().getTime();
-
-    return (timeInMilliseconds - timeNow) / 1000;
+    return new Date(time).getTime() / 1000;
   }
 }

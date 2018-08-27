@@ -1,5 +1,5 @@
 import {Inject, Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Task} from '../models/task';
 
 @Injectable()
@@ -12,11 +12,11 @@ export class DataService {
     return this.http.get(this.baseUrl + this.url);
   }
 
-  getTaskById(id: number) {
-    return this.http.post(this.baseUrl + this.url, id);
+  updateTask(id: number, task: Task) {
+    return this.http.put(this.baseUrl + this.url + '/' + task.id, task);
   }
 
-  addTask(apiTask: Task) {
-    return this.http.post(this.baseUrl + this.url, apiTask);
+  addTask(task: Task) {
+    return this.http.post(this.baseUrl + this.url, task);
   }
 }

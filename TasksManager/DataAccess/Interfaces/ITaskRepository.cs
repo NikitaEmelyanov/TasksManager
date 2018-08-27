@@ -8,5 +8,6 @@ namespace TasksManager.DataAccess.Interfaces
         void Write(DbTask dbTask);
         IEnumerable<DbTask> ReadAll();
         DbTask ReadById(int id);
+        void Update(DbTask dbTask);
     }
 }

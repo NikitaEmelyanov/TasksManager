@@ -1,7 +1,5 @@
 <h1>Tasks List</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
-
 <p *ngIf="!tasks"><em>Loading...</em></p>
 
 <table class='table' *ngIf="tasks">
@@ -19,8 +17,12 @@
       <td>{{ task.name }} </td>
       <td>{{ task.description }}</td>
       <td>{{ task.priority }}</td>
-      <td>{{ task.creation_time * 1000 | date: 'yyyy-MM-dd HH:mm' }}</td>
-      <td>{{ task.time_to_complete }}</td>
+      <td>{{ task.creation_time * 1000 | date: 'yyyy-MM-dd HH:mm'}}</td>
+      <td>{{ task.completion_time }}</td>
+      <td>
+        <button class="btn btn-sm btn-primary" (click)="completeTask(task.id)">Complete</button>
+
+      </td>
     </tr>
   </tbody>
 </table>

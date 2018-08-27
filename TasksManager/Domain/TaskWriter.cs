@@ -23,13 +23,41 @@ namespace TasksManager.Domain
 
         private DbTask ToDbTask(Task task)
         {
-            var competionTime = DateTime.Now + TimeSpan.FromSeconds(task.TimeToComplete);
             return new DbTask
             {
                 Name = task.Name,
                 Description = task.Description,
                 Priority = task.Priority,
-                CompletionTime = competionTime,
+                Status = TaskStatus.Active,
+                CompletionTime = DateTimeOffset.FromUnixTimeSeconds(task.CompletionTime).DateTime,
+                CreationTime = DateTime.Now.ToUniversalTime()
+            };
+        }
+    }
+
+    public class TaskUpdater : ITaskUpdater
+    {
+        private readonly ITaskRepository _taskRepository;
+
+        public TaskUpdater(ITaskRepository taskRepository)
+        {
+            _taskRepository = taskRepository;
+        }
+        public void Update(Task task)
+        {
+            var dbTask = ToDbTask(task);
+
+            _taskRepository.Update(dbTask);
+        }
+        private DbTask ToDbTask(Task task)
+        {
+            return new DbTask
+            {
+                Name = task.Name,
+                Description = task.Description,
+                Priority = task.Priority,
+                Status = task.Status,
+                //CompletionTime = task.CompletionTime,
                 CreationTime = DateTime.Now
             };
         }

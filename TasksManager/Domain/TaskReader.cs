@@ -41,15 +41,13 @@ namespace TasksManager.Domain
 
         private Task ToTask(DbTask dbTask)
         {
-            var timeToComplete = (long)(dbTask.CompletionTime - DateTime.Now).TotalSeconds;
-            if (timeToComplete < 0)
-                timeToComplete = 0;
             return new Task
             {
                 Name = dbTask.Name,
                 Description = dbTask.Description,
                 Priority = dbTask.Priority,
-                TimeToComplete = timeToComplete,
+                Status = dbTask.Status,
+                CompletionTime = ((DateTimeOffset)dbTask.CompletionTime).ToUnixTimeSeconds(),
                 CreationTime = ((DateTimeOffset)dbTask.CreationTime).ToUnixTimeSeconds()
             };
         }

@@ -26,9 +26,18 @@ namespace TasksManager.Controllers
             if (string.IsNullOrWhiteSpace(task.Name) ||
                 string.IsNullOrWhiteSpace(task.Description) ||
                 task.Priority <= 0 ||
-                task.TimeToComplete <= 0)
+                task.CompletionTime <= 0)
                 return BadRequest("Invalid payload");
 
+            _taskWriter.Save(task);
+
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(200)]
+        public IActionResult Put(int id, [FromBody] Task task)
+        {
             _taskWriter.Save(task);
 
             return Ok();

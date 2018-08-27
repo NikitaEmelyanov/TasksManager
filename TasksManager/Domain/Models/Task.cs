@@ -10,8 +10,10 @@ namespace TasksManager.Domain.Models
         public string Description { get; set; }
         [JsonProperty(PropertyName = "priority", Required = Required.Always)]
         public int Priority { get; set; }
-        [JsonProperty(PropertyName = "time_to_complete", Required = Required.Always)]
-        public long TimeToComplete { get; set; }
+        [JsonProperty(PropertyName = "status")]
+        public TaskStatus Status { get; set; }
+        [JsonProperty(PropertyName = "completion_time", Required = Required.Always)]
+        public long CompletionTime { get; set; }
         [JsonProperty(PropertyName = "creation_time")]
         public long CreationTime { get; set; }
     }
