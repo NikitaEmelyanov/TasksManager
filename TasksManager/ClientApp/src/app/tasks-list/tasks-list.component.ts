@@ -14,13 +14,24 @@ export class TasksListComponent {
   public domainTasks: Task[];
   public filter = 'all';
 
+  private countdownIntervalId: number;
+
   constructor(private dataService: DataService) {
-    this.dataService.getTasks()
-                    .subscribe((data: Task[]) => this.OnTasksLoad(data));
+    this.loadTasks();
   }
 
   public setFilter(status: string) {
     this.filter = status;
+  }
+
+  public loadTasks() {
+    this.dataService.getTasks()
+                    .subscribe((data: Task[]) => {
+                      this.apiTasks = data;
+                      this.domainTasks = data.map(x => Object.assign({}, x));
+                      this.extractCompletionTime();
+                      this.initCountdown();
+                    });
   }
 
   public completeTask(id: number) {
@@ -29,13 +40,6 @@ export class TasksListComponent {
 
   public removeTask(id: number) {
     this.updateStatus(id, TaskStatus.Removed);
-  }
-
-  private OnTasksLoad(data: Task[]) {
-    this.apiTasks = data;
-    this.domainTasks = data.map(x => Object.assign({}, x));
-    this.extractCompletionTime();
-    this.initCountdown();
   }
 
   private updateStatus(id: number, status: TaskStatus) {
@@ -49,7 +53,7 @@ export class TasksListComponent {
 
   private extractCompletionTime() {
     this.domainTasks.forEach(task =>  {
-      const completionTime = task.completion_time - task.creation_time;
+      const completionTime = Math.floor(task.completion_time - Date.now() / 1000);
       if (completionTime < 0) {
         task.completion_time = 0;
       } else {
@@ -59,7 +63,8 @@ export class TasksListComponent {
   }
 
   private initCountdown() {
-    setInterval(() => {
+    clearInterval(this.countdownIntervalId);
+    this.countdownIntervalId = setInterval(() => {
       this.domainTasks.forEach(task => {
         if (task.completion_time > 0) {
           task.completion_time--;
