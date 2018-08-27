@@ -29,7 +29,8 @@ namespace TasksManager.Domain
                 Name = task.Name,
                 Description = task.Description,
                 Priority = task.Priority,
-                CompletionTime = competionTime
+                CompletionTime = competionTime,
+                CreationTime = DateTime.Now
             };
         }
     }

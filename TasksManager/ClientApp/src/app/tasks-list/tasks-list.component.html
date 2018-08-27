@@ -19,7 +19,7 @@
       <td>{{ task.name }} </td>
       <td>{{ task.description }}</td>
       <td>{{ task.priority }}</td>
-      <td>{{ task.creation_time | date : "yyyy-MM-dd HH:mm" }}</td>
+      <td>{{ task.creation_time * 1000 | date: 'yyyy-MM-dd HH:mm' }}</td>
       <td>{{ task.time_to_complete }}</td>
     </tr>
   </tbody>

@@ -50,7 +50,7 @@ namespace TasksManager.Domain
                 Description = dbTask.Description,
                 Priority = dbTask.Priority,
                 TimeToComplete = timeToComplete,
-                CreationTime = (long)dbTask.CreationTime.TimeOfDay.TotalSeconds
+                CreationTime = ((DateTimeOffset)dbTask.CreationTime).ToUnixTimeSeconds()
             };
         }
     }

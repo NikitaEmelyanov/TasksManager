@@ -15,7 +15,7 @@ export class TasksListComponent {
                     .subscribe((data: Task[]) => this.tasks = data);
 
     this.initCountdown();
-  }
+  } 
 
   private initCountdown() {
     setInterval(() => {
