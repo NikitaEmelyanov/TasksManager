@@ -10,7 +10,7 @@ using TasksManager.DataAccess.Contexts;
 namespace TasksManager.Migrations
 {
     [DbContext(typeof(TasksContext))]
-    [Migration("20180826195526_Initial")]
+    [Migration("20180827185340_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,6 +36,8 @@ namespace TasksManager.Migrations
                     b.Property<string>("Name");
 
                     b.Property<int>("Priority");
+
+                    b.Property<int>("Status");
 
                     b.HasKey("Id");
 

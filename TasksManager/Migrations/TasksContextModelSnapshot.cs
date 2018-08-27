@@ -35,6 +35,8 @@ namespace TasksManager.Migrations
 
                     b.Property<int>("Priority");
 
+                    b.Property<int>("Status");
+
                     b.HasKey("Id");
 
                     b.ToTable("Tasks");

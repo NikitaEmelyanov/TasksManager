@@ -17,6 +17,7 @@ namespace TasksManager.Migrations
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Priority = table.Column<int>(nullable: false),
+                    Status = table.Column<int>(nullable: false),
                     CompletionTime = table.Column<DateTime>(nullable: false),
                     CreationTime = table.Column<DateTime>(nullable: false)
                 },
