@@ -2,11 +2,12 @@ import {Component} from '@angular/core';
 import {DataService} from '../services/data-service';
 import {Task} from '../models/task';
 import {TaskStatus} from '../models/task-status';
+import {LocationService} from '../services/location-service';
 
 @Component({
   selector: 'app-tasks-list',
   templateUrl: './tasks-list.component.html',
-  providers: [DataService]
+  providers: [DataService , LocationService]
 })
 
 export class TasksListComponent {
@@ -20,7 +21,7 @@ export class TasksListComponent {
   private countdownIntervalId: number;
   private removeButtonClicked: boolean;
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, private locationService: LocationService) {
     this.loadTasks();
   }
 
@@ -35,6 +36,8 @@ export class TasksListComponent {
                       this.domainTasks = data.map(x => Object.assign({}, x));
                       this.extractCompletionTime();
                       this.initCountdown();
+                      this.showDetailsIfNeeded();
+                      this.locationService.subscribe(() => this.showDetailsIfNeeded());
                     });
   }
 
@@ -49,11 +52,21 @@ export class TasksListComponent {
 
   public onTaskClick(task: Task) {
     if (this.removeButtonClicked) {
+      this.locationService.goToCurrent();
       this.removeButtonClicked = false;
       this.isTaskDetailsVisible = false;
       this.selectedTask = new Task();
     } else {
+      this.locationService.goToId(task.id);
       this.selectedTask = task;
+      this.isTaskDetailsVisible = true;
+    }
+  }
+
+  private showDetailsIfNeeded() {
+    const id = this.locationService.getId();
+    if (id > 0) {
+      this.selectedTask = this.domainTasks.find(task => task.id === id);
       this.isTaskDetailsVisible = true;
     }
   }
