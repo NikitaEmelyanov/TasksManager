@@ -29,8 +29,8 @@ namespace TasksManager.Domain
                 Description = task.Description,
                 Priority = task.Priority,
                 Status = TaskStatus.Active,
-                CompletionTime = DateTimeOffset.FromUnixTimeSeconds(task.CompletionTime).DateTime,
-                CreationTime = DateTime.Now.ToUniversalTime()
+                CompletionTime = DateTimeOffset.FromUnixTimeSeconds(task.CompletionTime).DateTime.ToLocalTime(),
+                CreationTime = DateTime.Now.ToUniversalTime().ToLocalTime()
             };
         }
     }
