@@ -1,8 +1,8 @@
 <h1>Tasks List</h1>
 
-<p *ngIf="!tasks"><em>Loading...</em></p>
+<p *ngIf="!domainTasks"><em>Loading...</em></p>
 
-<table class='table' *ngIf="tasks">
+<table class='table' *ngIf="domainTasks">
   <thead>
     <tr>
       <th>Name</th>
@@ -14,18 +14,20 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let task of tasks">
-      <td>{{ task.name }} </td>
-      <td>{{ task.description }}</td>
-      <td>{{ task.priority }}</td>
-      <td>{{ task.creation_time * 1000 | date: 'yyyy-MM-dd HH:mm'}}</td>
-      <td>{{ task.completion_time }}</td>
-      <td *ngIf="task.status === 0">
-          <button class="btn btn-sm btn-primary" (click)="completeTask(task.id)">Complete</button>
-      </td>
-      <td *ngIf="task.status === 1">
-        <button class="btn btn-sm btn-danger" (click)="removeTask(task.id)">Remove</button>
-      </td>
+    <tr *ngFor="let task of domainTasks">
+      <ng-container *ngIf="task.status != 2">
+        <td>{{ task.name }} </td>
+        <td>{{ task.description }}</td>
+        <td>{{ task.priority }}</td>
+        <td>{{ task.creation_time * 1000 | date: 'yyyy-MM-dd HH:mm'}}</td>
+        <td>{{ task.completion_time }}</td>
+        <td *ngIf="task.status === 0">
+            <button class="btn btn-sm btn-primary" (click)="completeTask(task.id)">Complete</button>
+        </td>
+        <td *ngIf="task.status === 1">
+          <button class="btn btn-sm btn-danger" (click)="removeTask(task.id)">Remove</button>
+        </td>
+      </ng-container>
     </tr>
   </tbody>
 </table>

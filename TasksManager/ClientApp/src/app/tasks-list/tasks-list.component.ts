@@ -8,9 +8,10 @@ import {TaskStatus} from '../models/task-status';
   templateUrl: './tasks-list.component.html',
   providers: [DataService]
 })
+
 export class TasksListComponent {
-  public loadedTasks: Task[];
-  public tasks: Task[];
+  public apiTasks: Task[];
+  public domainTasks: Task[];
 
   constructor(private dataService: DataService) {
     this.dataService.getTasks()
@@ -18,26 +19,31 @@ export class TasksListComponent {
   }
 
   public completeTask(id: number) {
-    this.loadedTasks.filter(task => {
-      if (task.id === id) {
-        task.status = TaskStatus.Completed;
-        this.dataService.updateTask(id, task).subscribe(() => { });
-      }
-    });
+    this.updateStatus(id, TaskStatus.Completed);
   }
 
   public removeTask(id: number) {
+    this.updateStatus(id, TaskStatus.Removed);
   }
 
   private OnTasksLoad(data: Task[]) {
-    this.loadedTasks = data;
-    this.tasks = data.map(x => Object.assign({}, x));
+    this.apiTasks = data;
+    this.domainTasks = data.map(x => Object.assign({}, x));
     this.extractCompletionTime();
     this.initCountdown();
   }
 
+  private updateStatus(id: number, status: TaskStatus) {
+    const toRemoveTask = this.apiTasks.find(task => task.id === id);
+
+    toRemoveTask.status = status;
+    this.dataService.updateTask(id, toRemoveTask).subscribe(() => {
+      this.domainTasks.find(task => task.id === id).status = status;
+    });
+  }
+
   private extractCompletionTime() {
-    this.tasks.forEach(task =>  {
+    this.domainTasks.forEach(task =>  {
       const completionTime = task.completion_time - task.creation_time;
       if (completionTime < 0) {
         task.completion_time = 0;
@@ -49,7 +55,7 @@ export class TasksListComponent {
 
   private initCountdown() {
     setInterval(() => {
-      this.tasks.forEach(task => {
+      this.domainTasks.forEach(task => {
         if (task.completion_time > 0) {
           task.completion_time--;
         }
