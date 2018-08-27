@@ -6,13 +6,13 @@ import {TaskStatus} from '../models/task-status';
 @Component({
   selector: 'app-tasks-list',
   templateUrl: './tasks-list.component.html',
-  styleUrls: ['./tasks-list.component.css'],
   providers: [DataService]
 })
 
 export class TasksListComponent {
   public apiTasks: Task[];
   public domainTasks: Task[];
+  public selectedTask: Task = new Task();
   public filter = 'all';
 
   private countdownIntervalId: number;
@@ -41,6 +41,10 @@ export class TasksListComponent {
 
   public removeTask(id: number) {
     this.updateStatus(id, TaskStatus.Removed);
+  }
+
+  public onTaskClick(task: Task) {
+    this.selectedTask = task;
   }
 
   private updateStatus(id: number, status: TaskStatus) {
