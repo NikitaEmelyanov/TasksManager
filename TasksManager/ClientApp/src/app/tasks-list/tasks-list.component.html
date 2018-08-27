@@ -10,6 +10,7 @@
       <th>Priority</th>
       <th>Added</th>
       <th>Time to complete</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -19,9 +20,11 @@
       <td>{{ task.priority }}</td>
       <td>{{ task.creation_time * 1000 | date: 'yyyy-MM-dd HH:mm'}}</td>
       <td>{{ task.completion_time }}</td>
-      <td>
-        <button class="btn btn-sm btn-primary" (click)="completeTask(task.id)">Complete</button>
-
+      <td *ngIf="task.status === 0">
+          <button class="btn btn-sm btn-primary" (click)="completeTask(task.id)">Complete</button>
+      </td>
+      <td *ngIf="task.status === 1">
+        <button class="btn btn-sm btn-danger" (click)="removeTask(task.id)">Remove</button>
       </td>
     </tr>
   </tbody>

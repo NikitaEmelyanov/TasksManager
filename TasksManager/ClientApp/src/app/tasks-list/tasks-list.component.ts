@@ -26,6 +26,9 @@ export class TasksListComponent {
     });
   }
 
+  public removeTask(id: number) {
+  }
+
   private OnTasksLoad(data: Task[]) {
     this.loadedTasks = data;
     this.tasks = data.map(x => Object.assign({}, x));
