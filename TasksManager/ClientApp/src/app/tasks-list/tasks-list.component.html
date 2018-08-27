@@ -1,81 +1,104 @@
 <p *ngIf="!domainTasks"><em>Loading...</em></p>
 
-<div class="col-lg-10">
-  <h1>Task List</h1>
-  <div>
-    <div class="btn-group">
-      <button type="button" (click)="setFilter('all')" class="btn btn-primary">All</button>
-      <button type="button" (click)="setFilter('active')" class="btn btn-primary">Active</button>
-      <button type="button" (click)="setFilter('completed')" class="btn btn-primary">Completed</button>
-    </div>
-
-    <div class="pull-right col-md-2">
-      <button type="button" (click)="loadTasks()" class="btn btn-light  col-xs-12">Refresh</button>
-    </div>
+<div class="container">
+  <div class="panel-heading">
+    <h2>Task List</h2>
   </div>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="btn-group">
+        <button type="button" (click)="setFilter('all')" class="btn btn-primary">All</button>
+        <button type="button" (click)="setFilter('active')" class="btn btn-primary">Active</button>
+        <button type="button" (click)="setFilter('completed')" class="btn btn-primary">Completed</button>
+      </div>
 
-  <div class="pre-scrollable">
-    <table class='table' *ngIf="domainTasks">
-      <thead>
-        <tr>
-          <th class="col-xs-2">Name</th>
-          <th class="col-xs-2">Description</th>
-          <th class="col-xs-2">Priority</th>
-          <th class="col-xs-2">Added</th>
-          <th class="col-xs-2">Time to complete</th>
-          <th class="col-xs-2">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-      <ng-container [ngSwitch]="filter">
-        <tr *ngFor="let task of domainTasks" [ngClass]="{'bg-primary':task.id === selectedTask.id}" (click)="onTaskClick(task)">
-          <ng-template [ngSwitchCase]="'all'">
-            <ng-container *ngIf="task.status != 2">
-              <td class="col-xs-2"> {{ task.name }} </td>
-              <td class="col-xs-2"> {{ task.description }}</td>
-              <td class="col-xs-2"> {{ task.priority }}</td>
-              <td class="col-xs-2"> {{ task.creation_time * 1000 | date: 'yyyy-MM-dd HH:mm'}}</td>
-              <td class="col-xs-2"> {{ task.completion_time }}</td>
-              <td class="col-xs-2" *ngIf="task.status === 0">
-                  <button class="btn btn-sm btn-success col-xs-12" (click)="completeTask(task.id)">Complete</button>
-              </td>
-              <td class="col-xs-2" *ngIf="task.status === 1">
-                <button class="btn btn-sm btn-danger col-xs-12" (click)="removeTask(task.id)">Remove</button>
-              </td>
-            </ng-container>
-          </ng-template>
-          <ng-template [ngSwitchCase]="'active'">
-            <ng-container *ngIf="task.status != 1 && task.status != 2">
-              <td class="col-xs-2" >{{ task.name }} </td>
-              <td class="col-xs-2" >{{ task.description }}</td>
-              <td class="col-xs-2" >{{ task.priority }}</td>
-              <td class="col-xs-2" >{{ task.creation_time * 1000 | date: 'yyyy-MM-dd HH:mm'}}</td>
-              <td class="col-xs-2" >{{ task.completion_time }}</td>
-              <td class="col-xs-2" *ngIf="task.status === 0">
-                <button class="btn btn-sm btn-success col-xs-12" (click)="completeTask(task.id)">Complete</button>
-              </td>
-            </ng-container>
-          </ng-template>
-          <ng-template [ngSwitchCase]="'completed'">
-            <ng-container *ngIf="task.status != 0 && task.status != 2">
-              <td class="col-xs-2" >{{ task.name }} </td>
-              <td class="col-xs-2" >{{ task.description }}</td>
-              <td class="col-xs-2" >{{ task.priority }}</td>
-              <td class="col-xs-2" >{{ task.creation_time * 1000 | date: 'yyyy-MM-dd HH:mm'}}</td>
-              <td class="col-xs-2" >{{ task.completion_time }}</td>
-              <td class="col-xs-2" *ngIf="task.status === 1">
-                <button class="btn btn-sm btn-danger col-xs-12" (click)="removeTask(task.id)">Remove</button>
-              </td>
-            </ng-container>
-          </ng-template>
-        </tr>
-      </ng-container>
-      </tbody>
-    </table>
+      <div class="pull-right col-md-2">
+        <button type="button" (click)="loadTasks()" class="btn btn-light  col-xs-12">Refresh</button>
+      </div>
+
+      <div class="pre-scrollable">
+        <table class='table' *ngIf="domainTasks">
+          <thead>
+            <tr>
+              <th class="col-xs-2">Name</th>
+              <th class="col-xs-2">Description</th>
+              <th class="col-xs-2">Priority</th>
+              <th class="col-xs-2">Added</th>
+              <th class="col-xs-2">Time to complete</th>
+              <th class="col-xs-2">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+          <ng-container [ngSwitch]="filter">
+            <tr *ngFor="let task of domainTasks" [ngClass]="{'bg-primary':task.id === selectedTask.id}" (click)="onTaskClick(task)">
+              <ng-template [ngSwitchCase]="'all'">
+                <ng-container *ngIf="task.status != 2">
+                  <td class="col-xs-2"> {{ task.name }} </td>
+                  <td class="col-xs-2"> {{ task.description }}</td>
+                  <td class="col-xs-2"> {{ task.priority }}</td>
+                  <td class="col-xs-2"> {{ task.creation_time * 1000 | date: 'yyyy-MM-dd HH:mm'}}</td>
+                  <td class="col-xs-2"> {{ task.completion_time }}</td>
+                  <td class="col-xs-2" *ngIf="task.status === 0">
+                      <button class="btn btn-sm btn-success col-xs-12" (click)="completeTask(task.id)">Complete</button>
+                  </td>
+                  <td class="col-xs-2" *ngIf="task.status === 1">
+                    <button class="btn btn-sm btn-danger col-xs-12" (click)="removeTask(task.id)">Remove</button>
+                  </td>
+                </ng-container>
+              </ng-template>
+              <ng-template [ngSwitchCase]="'active'">
+                <ng-container *ngIf="task.status != 1 && task.status != 2">
+                  <td class="col-xs-2" >{{ task.name }} </td>
+                  <td class="col-xs-2" >{{ task.description }}</td>
+                  <td class="col-xs-2" >{{ task.priority }}</td>
+                  <td class="col-xs-2" >{{ task.creation_time * 1000 | date: 'yyyy-MM-dd HH:mm'}}</td>
+                  <td class="col-xs-2" >{{ task.completion_time }}</td>
+                  <td class="col-xs-2" *ngIf="task.status === 0">
+                    <button class="btn btn-sm btn-success col-xs-12" (click)="completeTask(task.id)">Complete</button>
+                  </td>
+                </ng-container>
+              </ng-template>
+              <ng-template [ngSwitchCase]="'completed'">
+                <ng-container *ngIf="task.status != 0 && task.status != 2">
+                  <td class="col-xs-2" >{{ task.name }} </td>
+                  <td class="col-xs-2" >{{ task.description }}</td>
+                  <td class="col-xs-2" >{{ task.priority }}</td>
+                  <td class="col-xs-2" >{{ task.creation_time * 1000 | date: 'yyyy-MM-dd HH:mm'}}</td>
+                  <td class="col-xs-2" >{{ task.completion_time }}</td>
+                  <td class="col-xs-2" *ngIf="task.status === 1">
+                    <button class="btn btn-sm btn-danger col-xs-12" (click)="removeTask(task.id)">Remove</button>
+                  </td>
+                </ng-container>
+              </ng-template>
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="col-lg-10">
-  <h3>Task details</h3>
-
+<div class="container">
+  <div class="panel-heading">
+    <h4>Task details</h4>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="dl-horizontal">
+        <dl>
+          <dt>Name</dt>
+          <dd>{{selectedTask.name}}</dd>
+          <dt>Description</dt>
+          <dd>{{selectedTask.description}}</dd>
+          <dt>Status</dt>
+          <dd>{{selectedTask.status}}</dd>
+          <dt>Priority</dt>
+          <dd>{{selectedTask.priority}}</dd>
+          <dt>Added</dt>
+          <dd>{{selectedTask.creation_time * 1000 | date: 'yyyy-MM-dd HH:mm'}}</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
 </div>
