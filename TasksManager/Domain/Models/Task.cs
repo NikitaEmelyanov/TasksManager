@@ -4,6 +4,8 @@ namespace TasksManager.Domain.Models
 {
     public class Task
     {
+        [JsonProperty(PropertyName = "id")]
+        public int Id { get; set; }
         [JsonProperty(PropertyName = "name", Required = Required.Always)]
         public string Name { get; set; }
         [JsonProperty(PropertyName = "description", Required = Required.Always)]

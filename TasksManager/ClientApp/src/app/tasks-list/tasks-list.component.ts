@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {DataService} from '../services/data-service';
 import {Task} from '../models/task';
+import {TaskStatus} from '../models/task-status';
 
 @Component({
   selector: 'app-tasks-list',
@@ -8,6 +9,7 @@ import {Task} from '../models/task';
   providers: [DataService]
 })
 export class TasksListComponent {
+  public loadedTasks: Task[];
   public tasks: Task[];
 
   constructor(private dataService: DataService) {
@@ -16,16 +18,17 @@ export class TasksListComponent {
   }
 
   public completeTask(id: number) {
-    this.tasks.filter(task => {
+    this.loadedTasks.filter(task => {
       if (task.id === id) {
         task.status = TaskStatus.Completed;
-        this.dataService.updateTask(id, task);
+        this.dataService.updateTask(id, task).subscribe(() => { });
       }
     });
   }
 
   private OnTasksLoad(data: Task[]) {
-    this.tasks = data;
+    this.loadedTasks = data;
+    this.tasks = data.map(x => Object.assign({}, x));
     this.extractCompletionTime();
     this.initCountdown();
   }

@@ -43,6 +43,7 @@ namespace TasksManager.Domain
         {
             return new Task
             {
+                Id = dbTask.Id,
                 Name = dbTask.Name,
                 Description = dbTask.Description,
                 Priority = dbTask.Priority,

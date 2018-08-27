@@ -36,6 +36,7 @@ namespace TasksManager
 
             services.AddScoped<ITaskRepository, TaskRepository>();
             services.AddScoped<ITaskWriter, TaskWriter>();
+            services.AddScoped<ITaskUpdater, TaskUpdater>();
             services.AddScoped<ITaskReader, TaskReader>();
         }
 

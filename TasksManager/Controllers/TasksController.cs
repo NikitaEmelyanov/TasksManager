@@ -11,11 +11,15 @@ namespace TasksManager.Controllers
     public class TasksController : ControllerBase
     {
         private readonly ITaskWriter _taskWriter;
+        private readonly ITaskUpdater _taskUpdater;
         private readonly ITaskReader _taskReader;
 
-        public TasksController(ITaskWriter taskWriter, ITaskReader taskReader)
+        public TasksController(ITaskWriter taskWriter, 
+                               ITaskUpdater taskUpdater,
+                               ITaskReader taskReader)
         {
             _taskWriter = taskWriter;
+            _taskUpdater = taskUpdater;
             _taskReader = taskReader;
         }
 
@@ -38,7 +42,7 @@ namespace TasksManager.Controllers
         [ProducesResponseType(200)]
         public IActionResult Put(int id, [FromBody] Task task)
         {
-            _taskWriter.Save(task);
+            _taskUpdater.Update(task);
 
             return Ok();
         }

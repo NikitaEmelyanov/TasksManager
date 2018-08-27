@@ -34,6 +34,8 @@ namespace TasksManager.DataAccess
         public void Update(DbTask dbTask)
         {
             _tasksContext.Tasks.Update(dbTask);
+
+            _tasksContext.SaveChanges();
         }
     }
 }
