@@ -6,6 +6,7 @@ import {TaskStatus} from '../models/task-status';
 @Component({
   selector: 'app-tasks-list',
   templateUrl: './tasks-list.component.html',
+  styleUrls: ['./tasks-list.component.css'],
   providers: [DataService]
 })
 
