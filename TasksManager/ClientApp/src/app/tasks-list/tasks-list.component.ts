@@ -12,10 +12,15 @@ import {TaskStatus} from '../models/task-status';
 export class TasksListComponent {
   public apiTasks: Task[];
   public domainTasks: Task[];
+  public filter = 'all';
 
   constructor(private dataService: DataService) {
     this.dataService.getTasks()
                     .subscribe((data: Task[]) => this.OnTasksLoad(data));
+  }
+
+  public setFilter(status: string) {
+    this.filter = status;
   }
 
   public completeTask(id: number) {
