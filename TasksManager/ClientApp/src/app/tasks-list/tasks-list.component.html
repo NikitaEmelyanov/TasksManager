@@ -35,9 +35,9 @@
                 <ng-container *ngIf="task.status != TaskStatus.Removed">
                   <td class="col-xs-2"> {{ task.name }} </td>
                   <td class="col-xs-2"> {{ task.description }}</td>
-                  <td class="col-xs-2"> {{ task.priority }}</td>
+                  <td class="col-xs-1"> {{ task.priority }}</td>
                   <td class="col-xs-2"> {{ task.creation_time * 1000 | date: 'yyyy-MM-dd HH:mm'}}</td>
-                  <td class="col-xs-2"> {{ task.completion_time }}</td>
+                  <td class="col-xs-3"> {{ task.completion_time | secondsToTime }}</td>
                   <td class="col-xs-2" *ngIf="task.status === TaskStatus.Active">
                       <button class="btn btn-sm btn-success col-xs-12" (click)="completeTask(task.id)">Complete</button>
                   </td>
@@ -50,9 +50,9 @@
                 <ng-container *ngIf="task.status != TaskStatus.Completed && task.status != TaskStatus.Removed">
                   <td class="col-xs-2" >{{ task.name }} </td>
                   <td class="col-xs-2" >{{ task.description }}</td>
-                  <td class="col-xs-2" >{{ task.priority }}</td>
+                  <td class="col-xs-1" >{{ task.priority }}</td>
                   <td class="col-xs-2" >{{ task.creation_time * 1000 | date: 'yyyy-MM-dd HH:mm'}}</td>
-                  <td class="col-xs-2" >{{ task.completion_time }}</td>
+                  <td class="col-xs-3" >{{ task.completion_time | secondsToTime }}</td>
                   <td class="col-xs-2" *ngIf="task.status === TaskStatus.Active">
                     <button class="btn btn-sm btn-success col-xs-12" (click)="completeTask(task.id)">Complete</button>
                   </td>
@@ -62,9 +62,9 @@
                 <ng-container *ngIf="task.status != TaskStatus.Active && task.status != TaskStatus.Removed">
                   <td class="col-xs-2" >{{ task.name }} </td>
                   <td class="col-xs-2" >{{ task.description }}</td>
-                  <td class="col-xs-2" >{{ task.priority }}</td>
+                  <td class="col-xs-1" >{{ task.priority }}</td>
                   <td class="col-xs-2" >{{ task.creation_time * 1000 | date: 'yyyy-MM-dd HH:mm'}}</td>
-                  <td class="col-xs-2" >{{ task.completion_time }}</td>
+                  <td class="col-xs-3" >{{ task.completion_time | secondsToTime }}</td>
                   <td class="col-xs-2" *ngIf="task.status === TaskStatus.Completed">
                     <button class="btn btn-sm btn-danger col-xs-12" (click)="removeTask(task.id)">Remove</button>
                   </td>

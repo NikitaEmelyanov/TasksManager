@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { TasksListComponent } from './tasks-list/tasks-list.component';
 import { AddTaskComponent } from './add-task/add-task.component';
 import {EnumAsStringPipe} from './pipes/enumAsString';
+import {SecondsToTimePipe} from './pipes/secondsToTime';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {EnumAsStringPipe} from './pipes/enumAsString';
     HomeComponent,
     TasksListComponent,
     AddTaskComponent,
-    EnumAsStringPipe
+    EnumAsStringPipe,
+    SecondsToTimePipe
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
