@@ -16,6 +16,7 @@ export class TasksListComponent {
   public filter = 'all';
 
   private countdownIntervalId: number;
+  private removeButtonClicked: boolean;
 
   constructor(private dataService: DataService) {
     this.loadTasks();
@@ -40,11 +41,17 @@ export class TasksListComponent {
   }
 
   public removeTask(id: number) {
+    this.removeButtonClicked = true;
     this.updateStatus(id, TaskStatus.Removed);
   }
 
   public onTaskClick(task: Task) {
-    this.selectedTask = task;
+    if (this.removeButtonClicked) {
+      this.removeButtonClicked = false;
+      this.selectedTask = new Task();
+    } else {
+      this.selectedTask = task;
+    }
   }
 
   private updateStatus(id: number, status: TaskStatus) {
