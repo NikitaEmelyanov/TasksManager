@@ -1,6 +1,15 @@
 # TasksManager
 A simple app to manage daily tasks
 
+### Add new task
+
+<img src="/pics/add-new-task.PNG" height="400" />
+
+### Manage current tasks
+
+<img src="/pics/task-list-all.PNG" width="800" height="400" />
+<img src="/pics/task-list-active.PNG" width="800" height="400" />
+
 Tech stack:
 - ASP.NET Core as a backend
 - Angular as client-side framework, bootstrap
