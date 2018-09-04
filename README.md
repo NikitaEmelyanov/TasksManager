@@ -1,5 +1,5 @@
 # TasksManager
-A simple app to manage tasks
+A simple app to manage daily tasks
 
 Tech stack:
 - ASP.NET Core as a backend
